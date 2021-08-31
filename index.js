@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 });
 //GET
 //Simply sends the current time
-app.get('/time', (req, res) => {
+app.get('/cep', (req, res) => {
     let timeNow = Date(Date.now());
     res.status(200).send(timeNow.toString());
 });
