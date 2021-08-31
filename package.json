@@ -13,6 +13,7 @@
     "aws-serverless-express": "^3.4.0",
     "express": "^4.17.1",
     "install": "^0.13.0",
-    "serverless": "^2.54.0"
+    "serverless": "^2.54.0",
+    "sls": "^0.1.0"
   }
 }

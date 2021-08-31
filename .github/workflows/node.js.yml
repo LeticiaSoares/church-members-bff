@@ -20,6 +20,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
+    - name: Install dependencies
+      run: yarn
     - name: Serverless Framework Deploy AWS
       # You may pin to the exact commit or the version.
       # uses: hdev14/sls-deploy-action@0c1f4c3479904731c931c07cc2b0e7c025485eb8
