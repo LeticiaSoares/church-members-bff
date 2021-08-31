@@ -39,7 +39,7 @@ jobs:
         # AWS secret access key
         awsSecretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # The specific stage name to deploy
-        stage: yarn run deploy
+        stage: 'prod'
         # The specific region on AWS
         region: ${{ secrets.AWS_S3_REGION }}
     
