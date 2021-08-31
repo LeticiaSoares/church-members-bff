@@ -1,0 +1,14 @@
+  service: church-members-bff #Name of your App
+  provider:
+    name: aws
+    runtime: nodejs10.x # NodeJS version
+    memorySize: 512
+    timeout: 15
+    stage: production
+    region: us-east-1 # your AWS region
+  functions:
+    api:
+      handler: lambda.universal
+      events:
+        - http: ANY {proxy+}
+        - http: ANY /
