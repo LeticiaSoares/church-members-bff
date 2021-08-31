@@ -26,7 +26,20 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+#    - run: npm ci
+#    - run: npm run build --if-present
+#    - run: npm test
+    - name: Serverless Framework Deploy AWS
+      # You may pin to the exact commit or the version.
+      # uses: hdev14/sls-deploy-action@0c1f4c3479904731c931c07cc2b0e7c025485eb8
+      uses: hdev14/sls-deploy-action@1.0.0
+      with:
+        # AWS access key ID
+        awsAccessKeyID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        # AWS secret access key
+        awsSecretAccessKey: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        # The specific stage name to deploy
+        stage: yarn run deploy
+        # The specific region on AWS
+        region: ${{ secrets.AWS_S3_REGION }}
     
