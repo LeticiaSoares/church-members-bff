@@ -4,7 +4,7 @@
     runtime: nodejs10.x # NodeJS version
     memorySize: 512
     timeout: 15
-    stage: production
+    stage: test
     region: us-east-1 # your AWS region
   functions:
     api:

@@ -1,18 +1,32 @@
 {
   "name": "serverless-nodejs-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "git@github.com:LeticiaSoares/church-members-bff.git",
   "author": "LeticiaSoares <lele_leticia.94@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js",
+    "start:dev": "nodemon --exec babel-node ./src/index.js",
+    "start": "babel-node src/index.js",
+    "build": "babel ./src --out-dir ./dist --source-maps",
+    "build:clean": "rm -rf dist",
+    "prebuild": "npm run build:clean",
+    "start:prod": "npm run build && node ./dist/index.js",
     "deploy": "serverless deploy"
   },
   "dependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.15.0",
     "aws-serverless-express": "^3.4.0",
+    "babel-node": "^0.0.1-security",
     "express": "^4.17.1",
     "install": "^0.13.0",
+    "node-fetch": "^2.0.0",
+    "nodemon": "^2.0.12",
+    "regenerator-runtime": "^0.13.9",
     "serverless": "^2.54.0",
     "sls": "^0.1.0"
   }
