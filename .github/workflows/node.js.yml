@@ -24,12 +24,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - name: Serverless Framework Deploy AWS
-      # You may pin to the exact commit or the version.
-      # uses: hdev14/sls-deploy-action@0c1f4c3479904731c931c07cc2b0e7c025485eb8
-        uses: hdev14/sls-deploy-action@1.0.0
         env:
           IBGE_API: https://servicodados.ibge.gov.br/api/v1
+      - name: Serverless Framework Deploy AWS
+        env:
+          IBGE_API: https://servicodados.ibge.gov.br/api/v1
+        uses: hdev14/sls-deploy-action@1.0.0
         with:
           # AWS access key ID
           awsAccessKeyID: ${{ secrets.AWS_ACCESS_KEY_ID }}
