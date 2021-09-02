@@ -24,11 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-        env:
-          IBGE_API: https://servicodados.ibge.gov.br/api/v1
       - name: Serverless Framework Deploy AWS
-        env:
-          IBGE_API: https://servicodados.ibge.gov.br/api/v1
         uses: hdev14/sls-deploy-action@1.0.0
         with:
           # AWS access key ID
