@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 
 async function getUfs(req,res){
     try{
-        const response = await fetch(`${process.env.IBGE_API}/localidades/estados`)
+        const response = await fetch(`${process.env.IBGE_API}/localidades/estados?orderBy=nome`)
         const data = await response.json()
         return res.status(200).send(data)
     }catch (e){
@@ -22,7 +22,19 @@ async function getCities(req,res){
     }
 }
 
+async function getZipCode(req,res){
+    try{
+        const params = req.query
+        const response = await fetch(`${process.env.CEP_API}/?code=${params.code}`)
+        const data = await response.json()
+        return res.status(200).send(data)
+    }catch (e){
+        return res.status(500).send({message : "Error Caling API",error : e })
+    }
+}
+
 module.exports = {
     getUfs,
-    getCities
+    getCities,
+    getZipCode
 }

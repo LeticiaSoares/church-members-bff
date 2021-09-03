@@ -37,4 +37,6 @@ app.get('/ufs',adress.getUfs);
 
 app.get('/cities',adress.getCities);
 
+app.get('/zipcode',adress.getZipCode);
+
 module.exports = app;
