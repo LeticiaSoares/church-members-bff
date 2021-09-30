@@ -14,7 +14,6 @@ require('dotenv').config()
 const app = express()
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://a5irm8vxch.execute-api.us-east-1.amazonaws.com/production");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cookie");
     res.header("Access-Control-Allow-Credentials", true);
     next()
