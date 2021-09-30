@@ -20,20 +20,20 @@ app.use(function(req, res, next) {
     next()
 });
 
-// const allowedOrigins = [
-//     'http://localhost:8080',
-//     'http://church-members-admin.s3-website-us-east-1.amazonaws.com/production'];
-//
-// app.use(cors({
-//     origin: function(origin, callback){
-//         if(!origin) return callback(null, true);
-//         if(allowedOrigins.indexOf(origin) === -1){
-//             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-//             return callback(new Error(msg), false);
-//         }
-//         return callback(null, true);
-//     }
-// }));
+const allowedOrigins = [
+    'http://localhost:8080',
+    'http://church-members-admin.s3-website-us-east-1.amazonaws.com/production'];
+
+app.use(cors({
+    origin: function(origin, callback){
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.indexOf(origin) === -1){
+            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
+        }
+        return callback(null, true);
+    }
+}));
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

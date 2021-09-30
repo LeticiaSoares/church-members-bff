@@ -3,7 +3,6 @@ const graphql = require('graphql-request')
 
 async function login(req,res) {
     const params = req.body
-    console.log('body',params)
     const user = params.email
     const password = params.password
     const buff = Buffer.from(user + ":" + password, 'utf-8')
@@ -16,9 +15,10 @@ async function login(req,res) {
             },
         })
         res.cookie(response.headers.get('set-cookie'))
-        return res.status(200).send('ok')
+        return res.status(200).send({ token : base64 })
     }catch{
-        return res.status(500).send('error')
+        console.error(error)
+        return res.status(404).send(error)
     }
 
 }
