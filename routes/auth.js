@@ -14,7 +14,8 @@ async function login(req,res) {
                 'Authorization': `Bearer ${base64}`,
             },
         })
-        res.cookie(response.headers.get('set-cookie'))
+        const body = await response.json()
+        res.cookie('token',body.token, { maxAge: 900000, sameSite : 'none', secure: true, httpOnly: false })
         return res.status(200).send({ token : base64 })
     }catch{
         console.error(error)
