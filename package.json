@@ -12,11 +12,14 @@
   "dependencies": {
     "aws-serverless-express": "^3.4.0",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
+    "gql": "^1.1.2",
     "graphql": "^15.5.2",
+    "graphql-request": "^3.5.0",
     "install": "^0.13.0",
     "serverless": "^2.54.0",
     "sls": "^0.1.0"

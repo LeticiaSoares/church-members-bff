@@ -1,14 +1,29 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const adress = require('./routes/adress')
+const search = require('./routes/search')
+const auth = require('./routes/auth')
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
+
+const  { graphqlHTTP } = require('express-graphql');
+const  { buildSchema } = require('graphql');
+
 require('dotenv').config()
 
 const app = express()
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", process.env.CHURCH_ADMIN || "http://localhost:8080");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cookie");
+    res.header("Access-Control-Allow-Credentials", true);
+    next()
+});
 
-app.use(cors());
-app.use(bodyParser.json())
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 
 function listenServer() {
     const PORT = 3000
@@ -20,9 +35,6 @@ function listenServer() {
 if(process.env.NODE_ENV == 'dev') {
     listenServer()
 }
-
-app.use(express.json());
-app.use(express.urlencoded({extended:false}))
 
 app.get('/', (req, res) => {
     res.status(200).send('hello world!');
@@ -37,6 +49,10 @@ app.get('/ufs',adress.getUfs);
 
 app.get('/cities',adress.getCities);
 
+app.get('/search',search.getMembers);
+
 app.get('/zipcode',adress.getZipCode);
+
+app.post('/auth',auth.login);
 
 module.exports = app;
