@@ -14,6 +14,7 @@ async function getMembers(req,res) {
 				person{
 					firstName
 					lastName
+					birthDate
 				}
 			}
 		}
