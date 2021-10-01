@@ -3,7 +3,7 @@ const graphql = require('graphql-request')
 
 async function getMembers(req,res) {
     const params = req.query
-    const token = req.headers.cookie.split('=')
+    const token = req.headers.cookie ? req.headers.cookie.split('=') : ''
     const accessToken = token[1]
     let queryName = '';
     queryName = `,name:"${params.name}"`
@@ -31,7 +31,7 @@ async function getMembers(req,res) {
         return res.status(200).send(body);
     })
     .catch(error => {
-        console.error(error)
+        console.error('ERROR',error)
         return res.status(404).send(error)
     });
 }

@@ -15,8 +15,8 @@ async function login(req,res) {
             },
         })
         const body = await response.json()
-        res.cookie('token',body.token, { maxAge: 900000, sameSite : 'none', secure: true, httpOnly: false })
-        return res.status(200).send({ token : base64 })
+        res.cookie('token',body.token, { maxAge: 900000, sameSite : 'none', secure: true, httpOnly: true })
+        return res.status(200).send({ token : body.token })
     }catch{
         console.error(error)
         return res.status(404).send(error)
