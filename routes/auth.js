@@ -15,13 +15,17 @@ async function login(req,res) {
             },
         })
         const body = await response.json()
-        res.cookie('token',body.token, { maxAge: 900000, sameSite : 'none', secure: true, httpOnly: true })
-        return res.status(200).send({ token : body.token })
-    }catch{
-        console.error(error)
-        return res.status(404).send(error)
-    }
+        if(response.status === 201){
+            res.cookie('token',body.token, { maxAge: 900000, sameSite : 'none', secure: true, httpOnly: true })
+            return res.status(201).send({ token : body.token })
+        }else{
+            return res.status(404).send()
+        }
 
+    }catch (e) {
+        console.error(error)
+        return res.status(500).send(error)
+    }
 }
 
 module.exports = {
