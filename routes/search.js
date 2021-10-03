@@ -4,8 +4,8 @@ const graphql = require('graphql-request')
 async function getMembers(req,res) {
     try{
         const params = req.query
-        const token = req.headers.cookie ? req.headers.cookie.split('=') : ''
-        const accessToken = token[1]
+        const token = req.headers.cookie ? req.headers.cookie.split(';') : ''
+        const accessToken = token[0].split('=')[1]
         let queryName = '';
         queryName = `,name:"${params.name}"`
         const query = `
@@ -28,10 +28,15 @@ async function getMembers(req,res) {
             },
         })
         const data = await response.json()
-        return res.status(200).send(body);
-    }catch (e){
+        if(response.status == 200){
+            return res.status(200).send(data);
+        }else{
+            return res.status(404).send();
+        }
+
+    }catch (error){
         console.error('Search Error')
-        return res.status(404).send(error)
+        return res.status(500).send(error)
     }
 }
 
