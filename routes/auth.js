@@ -22,7 +22,7 @@ async function login(req,res) {
             return res.status(404).send()
         }
 
-    }catch (e) {
+    }catch (error) {
         console.error(error)
         return res.status(500).send(error)
     }
