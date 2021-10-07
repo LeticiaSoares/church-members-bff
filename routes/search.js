@@ -1,11 +1,10 @@
 const fetch = require('node-fetch')
-const graphql = require('graphql-request')
+const cookie = require('../utils/cookies')
 
 async function getMembers(req,res) {
     try{
         const params = req.query
-        const token = req.headers.cookie ? req.headers.cookie.split(';') : ''
-        const accessToken = token[0].split('=')[1]
+        const accessToken = cookie.getAuthCookie(req)
         let queryName = '';
         queryName = `,name:"${params.name}"`
         const query = `
@@ -16,7 +15,7 @@ async function getMembers(req,res) {
                         firstName
                         lastName
                         birthDate
-                    }
+                    }    
                 }
             }
             `;
@@ -40,6 +39,34 @@ async function getMembers(req,res) {
     }
 }
 
+async function getMemberById(req,res){
+    const param = req.params
+    const accessToken = cookie.getAuthCookie(req)
+    try{
+        const response = await fetch(
+            `https://tgtvnnh7hg.execute-api.us-east-1.amazonaws.com/prod/members/${param?.id}`,
+        {
+            headers: {
+                'X-Auth-Token': `${accessToken}`,
+            }
+        }
+        )
+        console.log('response',response)
+        const data = await response.json()
+        console.log('data',data)
+        if(response.status == 200){
+            return res.status(200).send(data);
+        }else{
+            return res.status(404).send();
+        }
+        return res.status(200).send(response);
+    }catch (error){
+        console.error('getMemberById',error)
+        return res.status(500).send(error)
+    }
+}
+
 module.exports = {
     getMembers,
+    getMemberById,
 }

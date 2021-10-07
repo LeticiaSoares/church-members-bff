@@ -58,6 +58,8 @@ app.get('/cities',adress.getCities);
 
 app.get('/search',search.getMembers);
 
+app.get('/search/:id',search.getMemberById);
+
 app.get('/zipcode',adress.getZipCode);
 
 app.post('/auth',auth.login);
