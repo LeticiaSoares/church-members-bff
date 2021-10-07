@@ -6,7 +6,7 @@
   "author": "LeticiaSoares <lele_leticia.94@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "deploy": "serverless deploy"
   },
   "dependencies": {
