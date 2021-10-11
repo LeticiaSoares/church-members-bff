@@ -6,18 +6,17 @@ const auth = require('./routes/auth')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
-const  { graphqlHTTP } = require('express-graphql');
-const  { buildSchema } = require('graphql');
-
 require('dotenv').config()
 
 const app = express()
 
+const corsWhitelist = [
+    'http://localhost:8080',
+    'http://church-members-admin.s3-website-us-east-1.amazonaws.com/',
+];
+
 app.use((req, res, next) => {
-    const corsWhitelist = [
-        'http://localhost:8080',
-        'http://church-members-admin.s3-website-us-east-1.amazonaws.com',
-    ];
+
     if (corsWhitelist.indexOf(req.headers.origin) !== -1) {
         res.header('Access-Control-Allow-Origin', req.headers.origin);
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Cookie');
@@ -26,6 +25,20 @@ app.use((req, res, next) => {
 
     next();
 });
+
+app.use(cors({
+    origin: function(origin, callback){
+        // allow requests with no origin
+        if(!origin) return callback(null, true);
+        if(corsWhitelist.indexOf(origin) === -1){
+            var message = 'The CORS policy for this origin doesnt ' +
+                'allow access from the particular origin.';
+            return callback(new Error(message), false);
+        }
+        return callback(null, true);
+    }
+}))
+
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
